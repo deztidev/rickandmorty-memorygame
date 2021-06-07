@@ -6,7 +6,29 @@ let firstCard, secondCard;
 const showMe =
   "https://d2eopxgp627wep.cloudfront.net/ps/audios/000/000/710/original/Show_me_what_you_got!.wav?1469744432";
 
-new Audio(showMe).play();
+const cromulon = document.querySelector(".cromulon");
+const startButton = document.querySelector(".initial__button");
+const initial = document.querySelector(".initial");
+const game = document.querySelector(".memory-game");
+const body = document.querySelector("body");
+
+const start = () => {
+  cromulon.classList.add("activated");
+  setTimeout(() => {
+    cromulon.classList.remove("activated");
+  }, 3000);
+  setTimeout(() => {
+    new Audio(showMe).play();
+  }, 1000);
+  setTimeout(() => {
+    initial.style.display = "none";
+    body.style.backgroundImage = 'url("./assets/rickandmorty-background.png")';
+    game.style.display = "flex";
+  }, 5000);
+};
+
+startButton.addEventListener("click", start);
+
 function flipCard() {
   if (lockBoard) return;
   if (this === firstCard) return;
