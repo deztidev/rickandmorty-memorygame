@@ -1,3 +1,5 @@
+import getData from "./getData.js";
+
 const cards = document.querySelectorAll(".memory-card");
 
 let hasFlippedCard = false;
@@ -10,7 +12,24 @@ const cromulon = document.querySelector(".cromulon");
 const startButton = document.querySelector(".initial__button");
 const initial = document.querySelector(".initial");
 const game = document.querySelector(".memory-game");
+const card = document.querySelectorAll(".memory-card");
 const body = document.querySelector("body");
+
+const frontFace = document.querySelectorAll(".front-face");
+
+const Character = async () => {
+  const data = await getData();
+  for (let i = 0; i < frontFace.length; i++) {
+    frontFace[i].src = data.results[i].image;
+    card[i].dataset.framework = data.results[i].name;
+  }
+  for (let i = 0, j = 10; i < frontFace.length / 2; i++, j++) {
+    frontFace[i].src = data.results[j].image;
+    card[i].dataset.framework = data.results[j].name;
+  }
+};
+
+Character();
 
 const start = () => {
   cromulon.classList.add("activated");
@@ -19,7 +38,7 @@ const start = () => {
   }, 3000);
   setTimeout(() => {
     new Audio(showMe).play();
-  }, 1000);
+  }, 500);
   setTimeout(() => {
     initial.style.display = "none";
     body.style.backgroundImage = 'url("./assets/rickandmorty-background.png")';

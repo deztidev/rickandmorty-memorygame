@@ -65,12 +65,14 @@ body {
   height: 640px;
   margin: auto;
   display: none;
+  align-content: center;
   flex-wrap: wrap;
   perspective: 1000px;
 }
 .memory-card {
   position: relative;
-  width: calc(25% - 10px);
+  width: calc(18%);
+  height: calc(20%);
   margin: 5px;
   transform: scale(1);
   transform-style: preserve-3d;
