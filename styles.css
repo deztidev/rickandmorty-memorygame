@@ -4,6 +4,7 @@
   padding: 0;
 }
 body {
+  font-family: Arial, Helvetica, sans-serif;
   height: 100vh;
   display: flex;
   background-image: linear-gradient(#2af598 0%, #009efd 100%);
@@ -44,7 +45,8 @@ body {
   border-radius: 25px;
   background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
 }
-.initial__button:hover {
+.initial__button:hover,
+.content__button:hover {
   opacity: 0.9;
 }
 .cromulon {
@@ -92,9 +94,51 @@ body {
   height: 100%;
   padding: 20px;
   border-radius: 5px;
-  background: #1c7ccc;
+  background: #1ccc7be8;
   backface-visibility: hidden;
+  object-fit: cover;
 }
 .front-face {
   transform: rotateY(180deg);
+}
+.modal {
+  display: none;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+.modal-active {
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal__container {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 25%;
+  height: 50%;
+  background-color: white;
+  border-radius: 6px;
+}
+.modal__content {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.content__image {
+  width: 40%;
+  object-fit: cover;
+}
+.content__button {
+  cursor: pointer;
+  letter-spacing: 1px;
+  font-weight: bold;
+  border: none;
+  width: 140px;
+  height: 35px;
+  border-radius: 6px;
+  background-color: #1ccc7be8;
 }
