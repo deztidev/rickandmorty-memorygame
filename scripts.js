@@ -70,13 +70,14 @@ const character = async () => {
 character();
 
 const start = async () => {
+  startButton.removeEventListener("click", start);
   cromulon.classList.add("activated");
   setTimeout(() => {
     cromulon.classList.remove("activated");
   }, 3000);
-  // await setTimeout(() => {
-  //   new Audio(showMe).play();
-  // }, 500);
+  await setTimeout(() => {
+    new Audio(showMe).play();
+  }, 500);
   setTimeout(() => {
     initial.style.display = "none";
     body.style.backgroundImage = 'url("./assets/rickandmorty-background.png")';
