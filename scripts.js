@@ -6,23 +6,56 @@ let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
 let count = 0;
+let movement = 0;
 const showMe =
   "https://d2eopxgp627wep.cloudfront.net/ps/audios/000/000/710/original/Show_me_what_you_got!.wav?1469744432";
 const iLike =
   "https://d2eopxgp627wep.cloudfront.net/ps/audios/000/000/706/original/I_like_what_you_got.wav?1469744420";
 
+const body = document.querySelector("body");
 const cromulon = document.querySelector(".cromulon");
 const startButton = document.querySelector(".initial__button");
 const initial = document.querySelector(".initial");
 const game = document.querySelector(".memory-game");
-// const card = document.querySelectorAll(".memory-card");
 const frontFace = document.querySelectorAll(".front-face");
-const body = document.querySelector("body");
+const performance = document.querySelector(".performance");
+const chronometerDisplay = document.querySelectorAll(".performance__item")[0];
+const movements = document.querySelectorAll(".performance__item")[1];
 const modal = document.querySelector(".modal");
+const resultsTime = document.querySelectorAll(".content__results")[0];
+const resultsMovements = document.querySelectorAll(".content__results")[1];
 const playAgain = document.querySelector(".content__button");
+
+let hours = `00`,
+  minutes = `00`,
+  seconds = `00`,
+  chronometerCall;
+
+const chronometer = () => {
+  seconds++;
+
+  if (seconds < 10) seconds = `0` + seconds;
+
+  if (seconds > 59) {
+    seconds = `00`;
+    minutes++;
+
+    if (minutes < 10) minutes = `0` + minutes;
+  }
+
+  if (minutes > 59) {
+    minutes = `00`;
+    hours++;
+
+    if (hours < 10) hours = `0` + hours;
+  }
+
+  chronometerDisplay.textContent = `${hours}:${minutes}:${seconds}`;
+};
 
 const character = async () => {
   const data = await getData();
+  console.log(data);
   for (let i = 0; i < frontFace.length; i++) {
     frontFace[i].src = data.results[i].image;
     frontFace[i].alt = data.results[i].name;
@@ -36,18 +69,19 @@ const character = async () => {
 
 character();
 
-const start = () => {
+const start = async () => {
   cromulon.classList.add("activated");
   setTimeout(() => {
     cromulon.classList.remove("activated");
   }, 3000);
-  setTimeout(() => {
-    new Audio(showMe).play();
-  }, 500);
+  // await setTimeout(() => {
+  //   new Audio(showMe).play();
+  // }, 500);
   setTimeout(() => {
     initial.style.display = "none";
     body.style.backgroundImage = 'url("./assets/rickandmorty-background.png")';
     game.style.display = "flex";
+    performance.style.display = "flex";
   }, 5000);
   shuffle();
 };
@@ -57,6 +91,10 @@ startButton.addEventListener("click", start);
 function flipCard() {
   if (lockBoard) return;
   if (this === firstCard) return;
+
+  movement += 1;
+  movements.textContent = `MOVIMIENTOS: ${movement}`;
+  if (movement === 1) chronometerCall = setInterval(chronometer, 1000);
 
   this.classList.add("flip");
 
@@ -109,9 +147,12 @@ const shuffle = () => {
   });
 };
 
-const finishGame = () => {
-  new Audio(iLike).play();
+const finishGame = async () => {
+  await new Audio(iLike).play();
   modal.classList.add("modal-active");
+  clearInterval(chronometerCall);
+  resultsTime.textContent = `Tiempo: ${hours}:${minutes}:${seconds}`;
+  resultsMovements.textContent = `Movimientos: ${movement}`;
 };
 
 const newGame = () => {
@@ -119,6 +160,12 @@ const newGame = () => {
   shuffle();
   resetBoard();
   count = 0;
+  movement = 0;
+  hours = "00";
+  minutes = "00";
+  seconds = "00";
+  chronometerDisplay.textContent = "00:00:00";
+  movements.textContent = `MOVIMIENTOS: ${movement}`;
   cards.forEach(card => {
     card.classList.remove("flip");
     card.addEventListener("click", flipCard);

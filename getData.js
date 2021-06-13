@@ -1,6 +1,11 @@
 const getData = async () => {
   try {
-    const response = await fetch("https://rickandmortyapi.com/api/character");
+    let random = Math.floor(Math.random() * 34) + 1;
+    const response = await fetch(
+      random === 1
+        ? "https://rickandmortyapi.com/api/character"
+        : `https://rickandmortyapi.com/api/character?page=${random}`
+    );
     const data = await response.json();
     return data;
   } catch {
