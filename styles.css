@@ -39,7 +39,7 @@ body {
 }
 .cromulon {
   position: absolute;
-  top: 108%;
+  top: 110%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 900;
