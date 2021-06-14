@@ -39,7 +39,7 @@ body {
 }
 .cromulon {
   position: absolute;
-  top: 100%;
+  top: 108%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 900;
@@ -162,8 +162,15 @@ body {
   .cromulon {
     width: 500px;
   }
+  .performance {
+    font-family: monospace;
+  }
   .modal__container {
     width: 250px;
+  }
+  .modal__content {
+    font-family: monospace;
+    letter-spacing: -1px;
   }
   .content__title {
     font-size: 1.3rem;
@@ -180,10 +187,10 @@ body {
   }
 }
 
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 586px) {
   .memory-game {
-    width: 300px;
-    height: 300px;
+    width: 85%;
+    height: 45%;
     justify-content: center;
   }
   .cromulon {
