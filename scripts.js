@@ -58,26 +58,26 @@ const character = async () => {
   console.log(data);
   for (let i = 0; i < frontFace.length; i++) {
     frontFace[i].src = data.results[i].image;
+    cards[i].dataset.framework = data.results[i].id;
     frontFace[i].alt = data.results[i].name;
-    cards[i].dataset.framework = data.results[i].name;
   }
   for (let i = 0, j = 10; i < frontFace.length / 2; i++, j++) {
     frontFace[i].src = data.results[j].image;
-    cards[i].dataset.framework = data.results[j].name;
+    cards[i].dataset.framework = data.results[j].id;
+    frontFace[i].alt = data.results[j].name;
   }
 };
 
-character();
-
-const start = async () => {
+const start = () => {
   startButton.removeEventListener("click", start);
+  character();
   cromulon.classList.add("activated");
+  setTimeout(() => {
+    new Audio(showMe).play();
+  }, 500);
   setTimeout(() => {
     cromulon.classList.remove("activated");
   }, 3000);
-  await setTimeout(() => {
-    new Audio(showMe).play();
-  }, 500);
   setTimeout(() => {
     initial.style.display = "none";
     body.style.backgroundImage = 'url("./assets/rickandmorty-background.png")';
@@ -86,8 +86,6 @@ const start = async () => {
   }, 5000);
   shuffle();
 };
-
-startButton.addEventListener("click", start);
 
 function flipCard() {
   if (lockBoard) return;
@@ -173,6 +171,6 @@ const newGame = () => {
   });
 };
 
-playAgain.addEventListener("click", newGame);
-
 cards.forEach(card => card.addEventListener("click", flipCard));
+startButton.addEventListener("click", start);
+playAgain.addEventListener("click", newGame);

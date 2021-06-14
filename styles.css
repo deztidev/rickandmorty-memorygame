@@ -189,4 +189,12 @@ body {
   .cromulon {
     width: 300px;
   }
+  .initial__logo {
+    width: 100%;
+  }
+  .initial__button {
+    letter-spacing: 2px;
+    width: 130px;
+    height: 40px;
+  }
 }

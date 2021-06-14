@@ -1,6 +1,6 @@
 const getData = async () => {
   try {
-    let random = Math.floor(Math.random() * 34) + 1;
+    let random = Math.floor(Math.random() * 33) + 1;
     const response = await fetch(
       random === 1
         ? "https://rickandmortyapi.com/api/character"
