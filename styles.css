@@ -204,4 +204,7 @@ body {
     width: 130px;
     height: 40px;
   }
+  .content__image {
+    margin: 0;
+  }
 }
